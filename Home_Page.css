@@ -1,0 +1,99 @@
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap');
+
+:root {
+  --navy: #03040e;
+  --deep: #060818;
+  --indigo: #0b0f28;
+  --violet: #5b2dab;
+  --violet-light: #7c4fd4;
+  --violet-glow: rgba(91,45,171,0.55);
+  --blue: #1a3a8f;
+  --blue-mid: #2055c8;
+  --cyan: #4fc3f7;
+  --cyan-glow: rgba(79,195,247,0.35);
+  --glass: rgba(255,255,255,0.038);
+  --glass-border: rgba(255,255,255,0.08);
+  --glass-hover: rgba(255,255,255,0.07);
+  --glass-strong: rgba(255,255,255,0.06);
+  --text: #eceffe;
+  --muted: rgba(200,205,255,0.42);
+  --accent: #8b6ff0;
+  --accent-soft: rgba(139,111,240,0.18);
+
+  --font-display: 'Syne', sans-serif;
+  --font-body: 'DM Sans', sans-serif;
+
+  --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  background:
+      radial-gradient(ellipse 80% 60% at 20% 10%, rgba(91,45,171,0.12) 0%, transparent 55%),
+      radial-gradient(ellipse 60% 50% at 80% 80%, rgba(32,85,200,0.1) 0%, transparent 50%),
+      linear-gradient(160deg, var(--navy) 0%, var(--deep) 40%, var(--indigo) 70%, #0d0b25 100%);
+  font-family: var(--font-body);
+  color: var(--text);
+}
+
+/* ── Custom scrollbar ── */
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: var(--navy); }
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, var(--violet), var(--blue-mid));
+  border-radius: 10px;
+}
+
+canvas {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  filter: blur(2px);
+}
+
+#BackGround {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  z-index: 1;
+  overflow: visible;
+}
+
+/* ── Noise grain overlay ── */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 2;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  background-size: 180px 180px;
+  opacity: 0.14;
+  pointer-events: none;
+  mix-blend-mode: overlay;
+}
+
+/* ── Scroll reveal utility ── */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.65s var(--ease-smooth), transform 0.65s var(--ease-smooth);
+}
+.reveal.visible {
+  opacity: 1;
+  transform: none;
+}
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+.reveal-delay-4 { transition-delay: 0.4s; }

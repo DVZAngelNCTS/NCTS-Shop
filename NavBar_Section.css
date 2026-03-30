@@ -1,0 +1,291 @@
+/* ─────────────────────────────────────────
+   NAVBAR — refined glassmorphism
+───────────────────────────────────────── */
+.navbar-glass {
+    background: rgba(3, 4, 14, 0.6);
+    backdrop-filter: blur(32px) saturate(180%) brightness(1.05);
+    -webkit-backdrop-filter: blur(32px) saturate(180%) brightness(1.05);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.055);
+    height: 68px;
+    position: relative;
+    transition: background 0.3s ease;
+}
+
+/* Animated shimmer line */
+.navbar-glass::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg,
+        transparent 0%,
+        var(--violet) 20%,
+        var(--accent) 40%,
+        var(--cyan) 55%,
+        var(--violet-light) 75%,
+        transparent 100%);
+    background-size: 250% 100%;
+    animation: shimmer-border 5s linear infinite;
+    opacity: 0.55;
+}
+
+/* Subtle top reflection */
+.navbar-glass::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent 10%, rgba(255,255,255,0.06) 50%, transparent 90%);
+    pointer-events: none;
+}
+
+@keyframes shimmer-border {
+    0%   { background-position: 250% 0; }
+    100% { background-position: -250% 0; }
+}
+
+/* ── Brand ── */
+.brand-icon-wrap {
+    width: 36px;
+    height: 36px;
+    border-radius: 11px;
+    background: linear-gradient(135deg, rgba(91,45,171,0.4), rgba(32,85,200,0.3));
+    border: 1px solid rgba(139,111,240,0.35);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 18px rgba(91,45,171,0.35), inset 0 1px 0 rgba(255,255,255,0.1);
+    transition: box-shadow 0.3s, transform 0.25s var(--ease-bounce);
+}
+
+.navbar-brand:hover .brand-icon-wrap {
+    box-shadow: 0 0 28px rgba(91,45,171,0.7), inset 0 1px 0 rgba(255,255,255,0.14);
+    transform: rotate(-10deg) scale(1.08);
+}
+
+.brand-icon {
+    background: linear-gradient(135deg, var(--accent), var(--cyan));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    font-size: 1rem !important;
+}
+
+.brand-text {
+    font-family: var(--font-display);
+    font-size: 0.95rem;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    background: linear-gradient(90deg, #fff 0%, rgba(200,205,255,0.75) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+/* ── Nav Links ── */
+.nav-link-custom {
+    font-family: var(--font-display);
+    color: var(--muted) !important;
+    font-size: 0.83rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    padding: 0.45rem 1rem !important;
+    border-radius: 9px;
+    position: relative;
+    transition: color 0.2s;
+    overflow: hidden;
+}
+
+.nav-link-custom span {
+    position: relative;
+    z-index: 1;
+}
+
+.nav-link-custom::before {
+    content: '';
+    position: absolute;
+    bottom: 6px;
+    left: 50%;
+    transform: translateX(-50%) scaleX(0);
+    width: calc(100% - 2rem);
+    height: 1.5px;
+    border-radius: 2px;
+    background: linear-gradient(90deg, var(--violet-light), var(--cyan));
+    transition: transform 0.28s var(--ease-smooth);
+}
+
+.nav-link-custom::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 9px;
+    background: linear-gradient(135deg, rgba(91,45,171,0.14), rgba(79,195,247,0.06));
+    opacity: 0;
+    transition: opacity 0.22s;
+}
+
+.nav-link-custom:hover,
+.nav-link-custom.active {
+    color: var(--text) !important;
+}
+
+.nav-link-custom:hover::before,
+.nav-link-custom.active::before {
+    transform: translateX(-50%) scaleX(1);
+}
+
+.nav-link-custom:hover::after,
+.nav-link-custom.active::after {
+    opacity: 1;
+}
+
+.nav-link-custom.active {
+    color: #fff !important;
+}
+
+/* ── Divider ── */
+.navbar-divider {
+    opacity: 0.12;
+    height: 22px;
+}
+
+/* ── Icon buttons ── */
+.btn-icon-glass {
+    width: 38px;
+    height: 38px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    color: var(--muted);
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    transition: color 0.2s, background 0.2s, border-color 0.2s, box-shadow 0.2s, transform 0.18s var(--ease-bounce);
+}
+
+.btn-icon-glass:hover {
+    color: var(--text);
+    background: rgba(255,255,255,0.08);
+    border-color: rgba(139,111,240,0.4);
+    box-shadow: 0 0 16px rgba(91,45,171,0.3), 0 2px 8px rgba(0,0,0,0.3);
+    transform: translateY(-2px);
+}
+
+/* ── Cart badge ── */
+.cart-badge {
+    background: linear-gradient(135deg, var(--violet), var(--cyan));
+    font-size: 0.58rem;
+    font-family: var(--font-display);
+    border: 1.5px solid var(--navy);
+    line-height: 1;
+    padding: 0.2rem 0.38rem;
+    min-width: 18px;
+    animation: badge-pulse 2.5s ease-in-out infinite;
+}
+
+@keyframes badge-pulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(91,45,171,0.55); }
+    50%       { box-shadow: 0 0 0 4px rgba(91,45,171,0); }
+}
+
+/* ── Notification dot ── */
+.notif-dot {
+    position: absolute;
+    top: 7px;
+    right: 7px;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--cyan);
+    border: 1.5px solid var(--navy);
+    animation: notif-blink 2s ease-in-out infinite;
+    box-shadow: 0 0 6px var(--cyan);
+}
+
+@keyframes notif-blink {
+    0%, 100% { opacity: 1; }
+    50%       { opacity: 0.3; }
+}
+
+/* ── Account button ── */
+.account-btn {
+    height: 38px;
+    padding: 0 0.8rem;
+    border-radius: 11px;
+    background: linear-gradient(135deg, rgba(91,45,171,0.22), rgba(32,85,200,0.16));
+    border: 1px solid rgba(139,111,240,0.32);
+    color: var(--text);
+    font-family: var(--font-display);
+    font-size: 0.81rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    box-shadow: 0 0 16px rgba(91,45,171,0.18), inset 0 1px 0 rgba(255,255,255,0.07);
+    transition: all 0.22s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.account-btn::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(105deg, transparent 38%, rgba(255,255,255,0.09) 50%, transparent 62%);
+    transform: translateX(-100%);
+    transition: transform 0.5s ease;
+}
+
+.account-btn:hover::before { transform: translateX(100%); }
+
+.account-btn:hover {
+    background: linear-gradient(135deg, rgba(91,45,171,0.38), rgba(32,85,200,0.3));
+    border-color: rgba(139,111,240,0.6);
+    box-shadow: 0 0 26px rgba(91,45,171,0.45), inset 0 1px 0 rgba(255,255,255,0.1);
+    transform: translateY(-1px);
+    color: #fff;
+}
+
+.account-avatar {
+    width: 24px;
+    height: 24px;
+    border-radius: 7px;
+    background: linear-gradient(135deg, var(--violet), var(--blue-mid));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    color: #fff;
+    flex-shrink: 0;
+    box-shadow: 0 0 8px rgba(91,45,171,0.4);
+}
+
+.account-label { font-weight: 600; }
+
+.account-chevron {
+    font-size: 0.65rem;
+    opacity: 0.5;
+    transition: transform 0.2s, opacity 0.2s;
+}
+.account-btn:hover .account-chevron {
+    transform: translateY(1px);
+    opacity: 0.85;
+}
+
+/* ── Toggler ── */
+.toggler-icon-custom span {
+    display: block;
+    width: 22px;
+    height: 2px;
+    border-radius: 2px;
+    background: var(--muted);
+    transition: background 0.2s, transform 0.28s ease, opacity 0.2s;
+}
+.navbar-toggler:not(.collapsed) .toggler-icon-custom span:nth-child(1) {
+    transform: translateY(6px) rotate(45deg);
+}
+.navbar-toggler:not(.collapsed) .toggler-icon-custom span:nth-child(2) {
+    opacity: 0;
+}
+.navbar-toggler:not(.collapsed) .toggler-icon-custom span:nth-child(3) {
+    transform: translateY(-6px) rotate(-45deg);
+}
